@@ -3,6 +3,7 @@ import Hello from "./components/Hello";
 
 import { NavLink, Routes, Route } from "react-router-dom";
 import Charts from "./components/charts";
+import axios from "axios";
 
 function App() {
   return (
