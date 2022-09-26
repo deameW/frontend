@@ -6,10 +6,14 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import { NavLink, Routes, Route } from "react-router-dom";
+import { NavLink, Routes, Route, Navigate } from "react-router-dom";
 import Charts from "./components/charts";
-
+import { isLogined } from "./utils/auth";
+import Login from "./components/Login";
 function App() {
+  if (!isLogined()) {
+    <NavLink to="/login">111</NavLink>;
+  }
   const items = [
     {
       label: <NavLink to="/charts">首页</NavLink>,
@@ -42,15 +46,17 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        <Route path="/charts" element={<Charts />}></Route>
-      </Routes>
       <Menu
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
         items={items}
       />
+      <Routes>
+        <Route path="/charts" element={<Charts />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="*" element={<Navigate replace to="/login" />} />
+      </Routes>
       ;
     </div>
   );
