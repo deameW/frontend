@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Input, Space, Button, Form, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { LoginAction } from "../../redux/actions/Login";
@@ -8,9 +9,18 @@ import { PROJECT_NAME, USER_NAME_INPUT, PASSWORD_INPUT, SIGN_IN } from "../zh";
 class LoginUI extends Component {
   handleSubmit = (username, password) => {
     this.props.login(username, password);
+    //TODO: why returned reducer's value is reducer itself
+    // if(this.props.code == 200)  do the follows:
+    /**
+     * TODO:想使用use navigate跳转路由，但是hook只能在函数式组件中使用，考虑把组件改为函数式组件
+     */
+    // route to the index page
+    // const navigate = useNavigate();
+
+    this.code = 200;
   };
   onFinish = (values) => {
-    console.log("Success:", values);
+    console.log("Login Check Success:", values);
     this.handleSubmit(values.username, values.password);
   };
 
@@ -79,6 +89,9 @@ class LoginUI extends Component {
                 </Button>
               </Form.Item>
             </Form>
+            {this.code == 200 ? (
+              <Navigate replace to={"/charts"}></Navigate>
+            ) : null}
           </Space>
         </div>
       </>
@@ -86,6 +99,11 @@ class LoginUI extends Component {
   }
 }
 
-export default connect((state) => ({}), {
-  login: LoginAction,
-})(LoginUI);
+export default connect(
+  (state) => ({
+    code: state,
+  }),
+  {
+    login: LoginAction,
+  }
+)(LoginUI);

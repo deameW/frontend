@@ -6,13 +6,12 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import { NavLink, Routes, Route, Navigate } from "react-router-dom";
-import Charts from "./components/charts";
+import { NavLink, Routes, Route, Navigate, useRoutes } from "react-router-dom";
 import { isLogined } from "./utils/auth";
-import Login from "./components/Login";
-import { createStore } from "redux";
+import routes from "./routes";
 
 function App() {
+  const element = useRoutes(routes);
   if (!isLogined()) {
     <NavLink to="/login">111</NavLink>;
   }
@@ -23,18 +22,13 @@ function App() {
       icon: <MailOutlined />,
     },
     {
-      label: "全局数据检索",
+      label: <NavLink to="/global-search">全局数据检索</NavLink>,
       key: "global-search",
       icon: <AppstoreOutlined />,
     },
     {
-      label: "重点数据检索",
-      key: "key-point-search",
-      icon: <SettingOutlined />,
-    },
-    {
-      label: "数据预测分析",
-      key: "analysis",
+      label: <NavLink to="/data-analysis">数据分析预测</NavLink>,
+      key: "data-analysis",
       icon: <SettingOutlined />,
     },
   ];
@@ -54,12 +48,8 @@ function App() {
         mode="horizontal"
         items={items}
       />
-      <Routes>
-        <Route path="/charts" element={<Charts />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="*" element={<Navigate replace to="/login" />} />
-      </Routes>
-      ;
+      {/* 注册路由 */}
+      {element};
     </div>
   );
 }

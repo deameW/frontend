@@ -13,11 +13,13 @@ export default function login(preState = initState, action) {
   //TODO: 为什么初始化时会连续调用三次
   console.log("#@@@");
   const { type, data } = action;
+  const res = { code: 200 };
   switch (type) {
     case "LOG_IN": //If to sign in, record the user information
       console.log("@");
-      return [data, ...preState];
+
+      return res;
     default:
-      return preState;
+      return res;
   }
 }
