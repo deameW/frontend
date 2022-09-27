@@ -10,6 +10,8 @@ import { NavLink, Routes, Route, Navigate } from "react-router-dom";
 import Charts from "./components/charts";
 import { isLogined } from "./utils/auth";
 import Login from "./components/Login";
+import { createStore } from "redux";
+
 function App() {
   if (!isLogined()) {
     <NavLink to="/login">111</NavLink>;

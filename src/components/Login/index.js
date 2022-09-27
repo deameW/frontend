@@ -1,17 +1,28 @@
+import { connect } from "react-redux";
 import React, { Component } from "react";
-import { Layout, Col, Row, Input, Space, Button } from "antd";
-import {
-  UserOutlined,
-  EyeInvisibleOutlined,
-  EyeTwoTone,
-} from "@ant-design/icons";
-const { Footer, Content } = Layout;
+import { Input, Space, Button, Form, Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { LoginAction } from "../../redux/actions/Login";
+import { PROJECT_NAME, USER_NAME_INPUT, PASSWORD_INPUT, SIGN_IN } from "../zh";
 
-export class Login extends React.Component {
+class LoginUI extends Component {
+  handleSubmit = (username, password) => {
+    this.props.login(username, password);
+  };
+  onFinish = (values) => {
+    console.log("Success:", values);
+    this.handleSubmit(values.username, values.password);
+  };
+
+  onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   render() {
     return (
       <>
-        <div style={{ width: "360px", margin: "0 auto" }}>
+        <div id="container" style={{ width: "360px", margin: "0 auto" }}>
+          <h1>{PROJECT_NAME}</h1>
+
           <Space
             direction="vertical"
             size="large"
@@ -19,29 +30,62 @@ export class Login extends React.Component {
               display: "flex",
             }}
           >
-            <h1>计量大数据平台</h1>
+            <Form
+              name="basic"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={this.onFinish}
+              onFinishFailed={this.onFinishFailed}
+              autoComplete="off"
+            >
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "请输入用户名!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder={USER_NAME_INPUT}
+                  prefix={<UserOutlined />}
+                />
+              </Form.Item>
 
-            <div>
-              <Input
-                size="large"
-                placeholder="用户名"
-                prefix={<UserOutlined />}
-              />
-            </div>
-            <div>
-              <Input.Password
-                size="large"
-                placeholder="input password"
-                prefix={<UserOutlined />}
-              />
-            </div>
-            <div>
-              <Button type="primary">Sign In</Button>
-            </div>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "请输入密码!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  placeholder={PASSWORD_INPUT}
+                  prefix={<LockOutlined />}
+                />
+              </Form.Item>
+
+              <Form.Item name="remember" valuePropName="checked">
+                <Checkbox>Remember me</Checkbox>
+              </Form.Item>
+
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
           </Space>
         </div>
       </>
     );
   }
 }
-export default Login;
+
+export default connect((state) => ({}), {
+  login: LoginAction,
+})(LoginUI);
