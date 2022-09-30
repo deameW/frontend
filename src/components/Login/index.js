@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Input, Space, Button, Form, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { LoginAction } from "../../redux/actions/Login";
@@ -30,9 +30,7 @@ class LoginUI extends Component {
   render() {
     return (
       <>
-        <div id="container" style={{ width: "360px", margin: "0 auto" }}>
-          <h1>{PROJECT_NAME}</h1>
-
+        <div id="container" style={{ width: "360px", margin: "20% auto" }}>
           <Space
             direction="vertical"
             size="large"
@@ -40,55 +38,69 @@ class LoginUI extends Component {
               display: "flex",
             }}
           >
-            <Form
-              name="basic"
-              initialValues={{
-                remember: true,
+            <div
+              id="project-name"
+              style={{
+                width: "232px",
+                height: "38px",
+                fontSize: "28px",
+                fontWeight: "bold",
+                margin: "0 auto",
               }}
-              onFinish={this.onFinish}
-              onFinishFailed={this.onFinishFailed}
-              autoComplete="off"
             >
-              <Form.Item
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入用户名!",
-                  },
-                ]}
+              {PROJECT_NAME}
+            </div>
+            <div style={{ "margin-top": "57px" }}>
+              <Form
+                name="basic"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={this.onFinish}
+                onFinishFailed={this.onFinishFailed}
+                autoComplete="off"
               >
-                <Input
-                  placeholder={USER_NAME_INPUT}
-                  prefix={<UserOutlined />}
-                />
-              </Form.Item>
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入用户名!",
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder={USER_NAME_INPUT}
+                    prefix={<UserOutlined style={{ color: "#1890FF" }} />}
+                  />
+                </Form.Item>
 
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "请输入密码!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  placeholder={PASSWORD_INPUT}
-                  prefix={<LockOutlined />}
-                />
-              </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入密码!",
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    placeholder={PASSWORD_INPUT}
+                    prefix={<LockOutlined style={{ color: "#1890FF" }} />}
+                  />
+                </Form.Item>
 
-              <Form.Item name="remember" valuePropName="checked">
+                {/* <Form.Item name="remember" valuePropName="checked">
                 <Checkbox>Remember me</Checkbox>
-              </Form.Item>
+              </Form.Item> */}
 
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    {SIGN_IN}
+                  </Button>
+                </Form.Item>
+              </Form>
+            </div>
             {this.code == 200 ? (
               <Navigate replace to={"/charts"}></Navigate>
             ) : null}
