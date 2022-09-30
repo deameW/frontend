@@ -64,6 +64,7 @@ function App() {
           selectedKeys={[current]}
           mode="horizontal"
           items={items}
+          style={{ height: "103px", lineHeight: "103px", fontSize: "14px" }}
           // hidden={true}
         />
       )}
