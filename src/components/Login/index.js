@@ -102,7 +102,7 @@ class LoginUI extends Component {
               </Form>
             </div>
             {this.code == 200 ? (
-              <Navigate replace to={"/charts"}></Navigate>
+              <Navigate replace to={"/dashboard"}></Navigate>
             ) : null}
           </Space>
         </div>
