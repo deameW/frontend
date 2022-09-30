@@ -1,9 +1,11 @@
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Select } from "antd";
+import { Button, Col, Form, Input, Row, Select, DatePicker } from "antd";
+
 import React, { useState } from "react";
 import "./style.css";
 
 const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 const AdvancedSearchForm = () => {
   const [expand, setExpand] = useState(false);
@@ -34,22 +36,31 @@ const AdvancedSearchForm = () => {
     ];
 
     for (let i = 0; i < count; i++) {
-      children.push(
-        <Col span={8} key={i}>
-          <Form.Item
-            name={`field-${i}`}
-            label={input_names[i]}
-            rules={[
-              {
-                required: true,
-                message: "Input something!",
-              },
-            ]}
-          >
-            <Input placeholder={placeholders[i]} />
-          </Form.Item>
-        </Col>
-      );
+      if (i == 4) {
+        children.push(
+          <Col span={8} key={i}>
+            <Form.Item name={`field-${i}`} label={input_names[i]}>
+              <RangePicker showTime />
+            </Form.Item>
+          </Col>
+        );
+      } else
+        children.push(
+          <Col span={8} key={i}>
+            <Form.Item
+              name={`field-${i}`}
+              label={input_names[i]}
+              rules={[
+                {
+                  required: false,
+                  message: "Input something!",
+                },
+              ]}
+            >
+              <Input placeholder={placeholders[i]} />
+            </Form.Item>
+          </Col>
+        );
     }
 
     return children;
@@ -57,6 +68,7 @@ const AdvancedSearchForm = () => {
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    // 发送search get请求
   };
 
   return (

@@ -1,13 +1,56 @@
-import React, { Component } from "react";
+import { InboxOutlined } from "@ant-design/icons";
+import { message, Upload, Progress, Col, Row, Button } from "antd";
+import React from "react";
+const { Dragger } = Upload;
+const props = {
+  name: "file",
+  multiple: true,
+  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
 
-export class DataAnalysis extends Component {
-  render() {
-    return (
-      <>
-        <h1>DataAnalysis</h1>
-      </>
-    );
-  }
-}
+  onChange(info) {
+    const { status } = info.file;
 
-export default DataAnalysis;
+    if (status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+
+    if (status === "done") {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+
+  onDrop(e) {
+    console.log("Dropped files", e.dataTransfer.files);
+  },
+};
+
+const DataAnylasis = () => (
+  <>
+    <Row>
+      <Col span={12}>
+        <Dragger {...props}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">
+            Click or drag file to this area to upload
+          </p>
+          <p className="ant-upload-hint">
+            Support for a single or bulk upload. Strictly prohibit from
+            uploading company data or other band files
+          </p>
+        </Dragger>
+      </Col>
+
+      <Col span={12}>
+        {/* <Progress percent={100} /> */}
+        <Button type="primary">不导入数据，直接进入平台</Button>
+        <Button>提交并分析数据</Button>
+      </Col>
+    </Row>
+  </>
+);
+
+export default DataAnylasis;
