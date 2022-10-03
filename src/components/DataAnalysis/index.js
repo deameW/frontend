@@ -9,7 +9,8 @@ import {
   Space,
   Divider,
 } from "antd";
-import React from "react";
+import { percentage } from "bizcharts/lib/utils";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StepsVertical from "../StepsVertical";
 const { Dragger } = Upload;
@@ -36,12 +37,50 @@ const props = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
+
 const window_height = document.body.clientHeight - 97;
+
+/**
+ *
+ * @returns 把percentage放到组件外面,更新percentage后render在
+ */
 const DataAnylasis = () => {
   const navigate = useNavigate();
+  // var percentage = 0;
+
   const handleClick = () => {
     navigate("/analysis-result");
   };
+  const handlePercentage = () => {
+    setInterval(() => {
+      if (percentage1 <= 90) {
+        setCurrent(0);
+        percentage1 += 30;
+        setPercentage1(percentage1);
+      } else if (percentage1 >= 100 && percentage2 <= 90) {
+        setCurrent(1);
+
+        percentage2 += 30;
+        setPercentage2(percentage2);
+      } else if (percentage2 >= 100 && percentage3 <= 90) {
+        setCurrent(2);
+
+        percentage3 += 30;
+        setPercentage3(percentage3);
+      } else {
+        setCurrent(3);
+
+        clearInterval();
+      }
+    }, 500);
+  };
+  var [percentage1, setPercentage1] = useState(0);
+  var [percentage2, setPercentage2] = useState(0);
+  var [percentage3, setPercentage3] = useState(0);
+  var [current, setCurrent] = useState(-1);
+  useEffect(() => {
+    console.log("use effect");
+  });
   return (
     <>
       <Space style={{}}>
@@ -59,13 +98,16 @@ const DataAnylasis = () => {
         <Divider type="vertical" style={{ height: window_height }} />
 
         <Space>
-          <StepsVertical></StepsVertical>
+          <StepsVertical current={current}></StepsVertical>
           <div style={{ margin: "0 auto" }}>
-            <Progress percent={100} strokeWidth={10} />
-            <Progress percent={100} />
-            <Progress percent={100} />
-            <Progress percent={100} />
-            <Button onClick={handleClick}>分析</Button>
+            <div style={{ paddingBottom: "50px" }}>
+              <Progress percent={percentage1} strokeWidth={10} />
+              <Progress percent={percentage2} strokeWidth={10} />
+              <Progress percent={percentage3} strokeWidth={10} />
+              <Progress percent={0} />
+              <Button onClick={handlePercentage}>进度条change</Button>
+              <Button onClick={handleClick}>分析</Button>
+            </div>
           </div>
         </Space>
       </Space>
