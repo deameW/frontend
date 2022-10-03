@@ -1,5 +1,9 @@
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select, DatePicker } from "antd";
+import BarChart from "../BarChart/BarChart";
+import PieChart from "../PieChart/PieChart";
+import LineChart from "../LineChart/LineChart";
+import ClientNumRank from "../ClientNumRank/ClientNumRank";
+import BoxPlot from "../BoxPlot/BoxPlot";
 
 import React, { useState } from "react";
 import "./style.css";
@@ -12,7 +16,7 @@ const AdvancedSearchForm = () => {
   const [form] = Form.useForm();
 
   const getFields = () => {
-    const count = expand ? 10 : 6;
+    const count = 8;
     const children = [];
 
     const input_names = [
@@ -38,15 +42,33 @@ const AdvancedSearchForm = () => {
     for (let i = 0; i < count; i++) {
       if (i == 4) {
         children.push(
-          <Col span={8} key={i}>
+          <Col span={6} key={i}>
             <Form.Item name={`field-${i}`} label={input_names[i]}>
               <RangePicker showTime />
             </Form.Item>
           </Col>
         );
+      } else if (i == 7) {
+        children.push(
+          <Col span={4} key={i} push={10}>
+            <Button type="primary" htmlType="submit">
+              搜索
+            </Button>
+            <Button
+              style={{
+                margin: "0 8px",
+              }}
+              onClick={() => {
+                form.resetFields();
+              }}
+            >
+              清除
+            </Button>
+          </Col>
+        );
       } else
         children.push(
-          <Col span={8} key={i}>
+          <Col span={4} key={i}>
             <Form.Item
               name={`field-${i}`}
               label={input_names[i]}
@@ -79,38 +101,6 @@ const AdvancedSearchForm = () => {
       onFinish={onFinish}
     >
       <Row gutter={24}>{getFields()}</Row>
-      <Row>
-        <Col
-          span={24}
-          style={{
-            textAlign: "right",
-          }}
-        >
-          <Button type="primary" htmlType="submit">
-            Search
-          </Button>
-          <Button
-            style={{
-              margin: "0 8px",
-            }}
-            onClick={() => {
-              form.resetFields();
-            }}
-          >
-            Clear
-          </Button>
-          <a
-            style={{
-              fontSize: 12,
-            }}
-            onClick={() => {
-              setExpand(!expand);
-            }}
-          >
-            {expand ? <UpOutlined /> : <DownOutlined />} Collapse
-          </a>
-        </Col>
-      </Row>
     </Form>
   );
 };
@@ -119,6 +109,13 @@ const GlobalSearch = () => (
   <div id="container">
     <AdvancedSearchForm />
     <div className="search-result-list">Search Result List</div>
+    <div>
+      <BarChart />
+      <PieChart />
+      <LineChart />
+      <ClientNumRank />
+      <BoxPlot />
+    </div>
   </div>
 );
 

@@ -1,6 +1,17 @@
 import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload, Progress, Col, Row, Button } from "antd";
+import {
+  message,
+  Upload,
+  Progress,
+  Col,
+  Row,
+  Button,
+  Space,
+  Divider,
+} from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import StepsVertical from "../StepsVertical";
 const { Dragger } = Upload;
 const props = {
   name: "file",
@@ -25,32 +36,41 @@ const props = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
-
-const DataAnylasis = () => (
-  <>
-    <Row>
-      <Col span={12}>
-        <Dragger {...props}>
+const window_height = document.body.clientHeight - 97;
+const DataAnylasis = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/analysis-result");
+  };
+  return (
+    <>
+      <Space style={{}}>
+        <Dragger {...props} style={{ width: "425px", height: "207px" }}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
+          <p className="ant-upload-text">点击或拖拽上传文件</p>
           <p className="ant-upload-hint">
             Support for a single or bulk upload. Strictly prohibit from
             uploading company data or other band files
           </p>
         </Dragger>
-      </Col>
 
-      <Col span={12}>
-        {/* <Progress percent={100} /> */}
-        <Button type="primary">不导入数据，直接进入平台</Button>
-        <Button>提交并分析数据</Button>
-      </Col>
-    </Row>
-  </>
-);
+        <Divider type="vertical" style={{ height: window_height }} />
+
+        <Space>
+          <StepsVertical></StepsVertical>
+          <div style={{ margin: "0 auto" }}>
+            <Progress percent={100} strokeWidth={10} />
+            <Progress percent={100} />
+            <Progress percent={100} />
+            <Progress percent={100} />
+            <Button onClick={handleClick}>分析</Button>
+          </div>
+        </Space>
+      </Space>
+    </>
+  );
+};
 
 export default DataAnylasis;

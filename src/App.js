@@ -24,8 +24,8 @@ function App() {
       hidden: true,
     },
     {
-      label: <NavLink to="/charts">首页</NavLink>,
-      key: "home-page",
+      label: <NavLink to="/dashboard">首页</NavLink>,
+      key: "dashboard",
       icon: <MailOutlined />,
     },
     {

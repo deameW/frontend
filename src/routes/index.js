@@ -4,11 +4,8 @@ import Login from "../components/Login";
 import GlobalSearch from "../components/GlobalSearch";
 import DataAnaysis from "../components/DataAnalysis";
 import { Dashboard } from "../components/Dashboard/Index";
+import { AnalysisResult } from "../components/AnalysisResult";
 export default [
-  {
-    path: "/charts",
-    element: <Charts />,
-  },
   {
     path: "/login",
     element: <Login />,
@@ -24,6 +21,10 @@ export default [
   {
     path: "/dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "/analysis-result",
+    element: <AnalysisResult />,
   },
   {
     path: "/",
