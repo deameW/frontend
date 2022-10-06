@@ -22,8 +22,9 @@ export default class BarChart extends Component {
     const chart = new Chart({
       container: "barcharts",
       autoFit: true,
-      height: 300,
+      height: 200,
       padding: [20, 30, 30, 70],
+      width: 700,
     });
 
     chart.data(data); //加载数据
