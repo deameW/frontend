@@ -35,7 +35,7 @@ export default class LineChart extends Component {
     const chart = new Chart({
       container: "linechart",
       autoFit: true,
-      height: 300,
+      height: 400,
     });
 
     chart.data(data);
