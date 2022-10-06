@@ -5,6 +5,7 @@ import GlobalSearch from "../components/GlobalSearch";
 import DataAnaysis from "../components/DataAnalysis";
 import { Dashboard } from "../components/Dashboard/Index";
 import { AnalysisResult } from "../components/AnalysisResult";
+import Test from "../components/Test";
 export default [
   {
     path: "/login",
@@ -25,6 +26,10 @@ export default [
   {
     path: "/analysis-result",
     element: <AnalysisResult />,
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
   {
     path: "/",

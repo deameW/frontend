@@ -11,12 +11,6 @@ class LoginUI extends Component {
     this.props.login(username, password);
     //TODO: why returned reducer's value is reducer itself
     // if(this.props.code == 200)  do the follows:
-    /**
-     * TODO:想使用use navigate跳转路由，但是hook只能在函数式组件中使用，考虑把组件改为函数式组件
-     */
-    // route to the index page
-    // const navigate = useNavigate();
-
     this.code = 200;
   };
   onFinish = (values) => {
@@ -50,7 +44,7 @@ class LoginUI extends Component {
             >
               {PROJECT_NAME}
             </div>
-            <div style={{ "margin-top": "57px" }}>
+            <div style={{ marginTop: "57px" }}>
               <Form
                 name="basic"
                 initialValues={{

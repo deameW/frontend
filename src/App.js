@@ -38,6 +38,11 @@ function App() {
       key: "data-analysis",
       icon: <SettingOutlined />,
     },
+    {
+      label: <NavLink to="/test">test</NavLink>,
+      key: "test",
+      icon: <SettingOutlined />,
+    },
   ];
 
   const [current, setCurrent] = useState("login");
@@ -69,7 +74,7 @@ function App() {
         />
       )}
       {/* 注册路由 */}
-      {element};
+      {element}
     </div>
   );
 }
