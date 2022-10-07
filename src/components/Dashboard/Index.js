@@ -5,6 +5,7 @@ import DialogBox from "../DialogBox";
 import { Col, Row, Divider, Space } from "antd";
 import RingChart from "../RingChart";
 import BarChart from "../BarChart/BarChart";
+import StatisticNumber from "../StatisticsNumber";
 
 // data for ring chart
 const myData = [
@@ -23,7 +24,7 @@ export class Dashboard extends Component {
     return (
       <>
         <h1>计量大数据可视化平台(海军)</h1>
-        {/* <WordCloud></WordCloud> */}
+
         {/* <KnowledgeGraph></KnowledgeGraph> */}
 
         {/* the box that contains the knowledge graph */}
@@ -36,26 +37,40 @@ export class Dashboard extends Component {
             width: "1325px",
             // height: "689px",
             backgroundColor: "#D9D9D9",
-            padding: "50px",
+            // padding: "50px",
           }}
         >
-          <Row style={{}}>
+          {/* First Line */}
+          <Row>
+            {/* "证书构成" */}
             <Col>
               <div
                 style={{
-                  width: "800px",
+                  width: "748px",
                   backgroundColor: "white",
                   height: "310px",
+                  marginLeft: "50px",
+                  marginTop: "50px",
                 }}
               >
                 <div>
-                  证书构成
-                  <Divider style={{ wdith: "800px" }} />
+                  <div
+                    style={{
+                      height: "56px",
+                      textAlign: "left",
+                      fontSize: "16px",
+                      lineHeight: "56px",
+                      borderBottom: "solid #D9D9D9 1px",
+                    }}
+                  >
+                    <span style={{ marginLeft: "24px" }}>证书构成</span>
+                  </div>
+                  {/* <Divider style={{ wdith: "748px", height: "1px" }} /> */}
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      marginTop: "80px",
+                      marginTop: "37px",
                     }}
                   >
                     <RingChart data={myData} content={myContent} />
@@ -70,30 +85,41 @@ export class Dashboard extends Component {
             <Col>
               <div
                 style={{
-                  width: "300px",
+                  width: "381px",
                   backgroundColor: "white",
-                  marginLeft: "100px",
+                  marginLeft: "75px",
+                  marginTop: "50px",
                 }}
               >
-                检测实验室所在地
-                <Divider></Divider>
-                <h1>词云</h1>
+                <div
+                  style={{
+                    height: "56px",
+                    textAlign: "left",
+                    fontSize: "16px",
+                    lineHeight: "56px",
+                    borderBottom: "solid #D9D9D9 1px",
+                  }}
+                >
+                  <span style={{ marginLeft: "24px" }}>实验室所在地</span>
+                </div>
+                <WordCloud></WordCloud>
               </div>
             </Col>
           </Row>
-          <Row>
+          <Row align="middle">
             <Col>
               <div
                 style={{
-                  width: "800px",
+                  width: "748px",
                   backgroundColor: "white",
                   height: "310px",
-                  marginTop: "30px",
+                  marginTop: "14px",
+                  marginLeft: "50px",
                 }}
               >
                 <div>
                   近12月检测量统计
-                  <Divider style={{ wdith: "800px" }} />
+                  <Divider style={{ wdith: "748px" }} />
                   <div
                     style={{
                       display: "flex",
@@ -108,7 +134,26 @@ export class Dashboard extends Component {
                 </div>
               </div>
             </Col>
-            <Col>4</Col>
+            <Col>
+              <div
+                style={{
+                  width: "381px",
+                  backgroundColor: "white",
+                  marginLeft: "75px",
+                  marginTop: "54PX",
+                  height: "175px",
+                }}
+              >
+                <div
+                  style={{
+                    padding: "30px",
+                    backgroundColor: "#ECECEC",
+                  }}
+                >
+                  <StatisticNumber />
+                </div>
+              </div>
+            </Col>
           </Row>
         </div>
       </>

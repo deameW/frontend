@@ -548,7 +548,7 @@ class Wordcloud extends React.Component {
     dv.transform({
       type: "tag-cloud",
       fields: ["x", "value"],
-      size: [600, 500],
+      size: [333, 333],
       font: "Verdana",
       padding: 0,
       timeInterval: 5000, // max execute time
@@ -576,8 +576,8 @@ class Wordcloud extends React.Component {
     };
     return (
       <Chart
-        width={600}
-        height={500}
+        width={333}
+        height={333}
         data={dv.rows}
         scale={scale}
         padding={0}
