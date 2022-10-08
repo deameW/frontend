@@ -36,10 +36,11 @@ const DialogBox = () => {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
-        width="1000px"
+        width="1180px"
+        heigh="613px"
       >
-        <p>{modalText}</p>
-        <KnowledgeGraph style={{ margin: "0 auto" }}></KnowledgeGraph>
+        {/* <KnowledgeGraph /> */}
+        <KnowledgeGraph></KnowledgeGraph>
       </Modal>
     </>
   );

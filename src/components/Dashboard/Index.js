@@ -25,8 +25,6 @@ export class Dashboard extends Component {
       <>
         <h1>计量大数据可视化平台(海军)</h1>
 
-        {/* <KnowledgeGraph></KnowledgeGraph> */}
-
         {/* the box that contains the knowledge graph */}
         {/* <DialogBox>
           <KnowledgeGraph />
@@ -118,8 +116,19 @@ export class Dashboard extends Component {
                 }}
               >
                 <div>
-                  近12月检测量统计
-                  <Divider style={{ wdith: "748px" }} />
+                  <div
+                    style={{
+                      height: "56px",
+                      textAlign: "left",
+                      fontSize: "16px",
+                      lineHeight: "56px",
+                      borderBottom: "solid #D9D9D9 1px",
+                    }}
+                  >
+                    <span style={{ marginLeft: "24px" }}>
+                      近12月证书检测量统计
+                    </span>
+                  </div>
                   <div
                     style={{
                       display: "flex",

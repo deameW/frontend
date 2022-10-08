@@ -8,8 +8,8 @@ export class KnowledgeGraph extends Component {
     model.fy = e.y;
   };
   componentDidMount() {
-    const container = document.getElementById("container");
-    const width = container.scrollWidth;
+    const container = document.getElementById("graph-box");
+    const width = container.scrollWidth || 717;
     const height = container.scrollHeight || 500;
 
     const data = {
@@ -54,7 +54,7 @@ export class KnowledgeGraph extends Component {
       ],
     };
     const graph = new G6.Graph({
-      container: "container",
+      container: "graph-box",
       width,
       height,
       layout: {
@@ -87,7 +87,7 @@ export class KnowledgeGraph extends Component {
         color: "#5B8FF9",
       },
       modes: {
-        default: ["drag-canvas"],
+        // default: ["drag-canvas"],
       },
     });
 
@@ -115,7 +115,12 @@ export class KnowledgeGraph extends Component {
   }
 
   render() {
-    return <h1 id="container" style={{ margin: "0 auto" }}></h1>;
+    return (
+      <div
+        id="graph-box"
+        style={{ width: "717px", height: "530px", margin: "0 auto" }}
+      ></div>
+    );
   }
 }
 export default KnowledgeGraph;
