@@ -6,6 +6,7 @@ import DataAnaysis from "../components/DataAnalysis";
 import { Dashboard } from "../components/Dashboard/Index";
 import { AnalysisResult } from "../components/AnalysisResult";
 import Test from "../components/Test";
+import DashBBoard from "../components/Dashboard/dash";
 export default [
   {
     path: "/login",
@@ -21,7 +22,7 @@ export default [
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <DashBBoard />,
   },
   {
     path: "/analysis-result",

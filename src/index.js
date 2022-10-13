@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log(store.getState());
+console.log("初始化的store:", store.getState());
 root.render(
   <Provider store={store}>
     <BrowserRouter>

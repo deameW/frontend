@@ -12,3 +12,4 @@ export const POSITION_OF_LAB = "实验室所在地";
 export const TEST_REPORT = "检测报告";
 export const AUTHENTICATION_REPORT = "检测报告";
 export const CALIBRATION_REPORT = "检测报告";
+export const STATISTIC_12_MONTH = "近12月证书检测量统计";

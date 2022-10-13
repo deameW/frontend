@@ -1,11 +1,13 @@
-import React, { Component } from "react";
 import { connect } from "react-redux";
+
+import React, { Component } from "react";
 import WordCloud from "../WordCloud";
 import { Col, Row, Divider, Space } from "antd";
 import RingChart from "../RingChart";
 import BarChart from "../BarChart/BarChart";
 import StatisticNumber from "../StatisticsNumber";
 import { RingChartPercentageAction } from "../../redux/actions/DashboardActions";
+
 import {
   PAGE_TITLE,
   COMPOSITION_OF_CERTIFICATE,
@@ -16,22 +18,23 @@ import {
 } from "../zh";
 import "./dashboard.css";
 // data for ring chart
-const myData = [
-  { type: "已完成", value: 0.6666 },
-  { type: "待提升", value: 0.3334 },
-];
+const myData = [{ value: 0.3334 }];
 
 export class Dashboard extends Component {
-  getRingChartData = () => {
-    RingChartPercentageAction("param");
+  componentDidUpdate = () => {
+    console.log("-------------componentDidUpdate------------------");
+
+    // console.log(this.props.percentages);
   };
-  componentDidMount() {
+
+  componentDidMount = () => {
     console.log("-------------componentDidMount------------------");
     //call ringchart action to get data
-    this.getRingChartData();
-  }
+    this.props.getPercentages();
+  };
   render() {
     console.log("-------------render------------------");
+
     return (
       <>
         <h1>{PAGE_TITLE}</h1>
@@ -161,7 +164,7 @@ export class Dashboard extends Component {
 }
 export default connect(
   (state) => ({
-    token: state,
+    percentages: state.DashboardReducer.percentages,
   }),
   {
     getPercentages: RingChartPercentageAction,
