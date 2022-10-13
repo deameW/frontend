@@ -4,13 +4,25 @@ import { Navigate } from "react-router-dom";
 import { Input, Space, Button, Form, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { LoginAction } from "../../redux/actions/Login";
-import { PROJECT_NAME, USER_NAME_INPUT, PASSWORD_INPUT, SIGN_IN } from "../zh";
+import {
+  PROJECT_NAME,
+  USER_NAME_INPUT,
+  PASSWORD_INPUT,
+  SIGN_IN,
+  HINT_USER_NAME_INPUT,
+  HINT_PASSWORD_INPUT,
+} from "../zh";
+import "./index.css";
 
 class LoginUI extends Component {
+  componentDidUpdate = () => {
+    console.log(
+      "---------------------------componentDidUpdate------------------"
+    );
+    console.log(this.props.token);
+  };
   handleSubmit = (username, password) => {
     this.props.login(username, password);
-    //TODO: why returned reducer's value is reducer itself
-    // if(this.props.code == 200)  do the follows:
     this.code = 200;
   };
   onFinish = (values) => {
@@ -24,7 +36,7 @@ class LoginUI extends Component {
   render() {
     return (
       <>
-        <div id="container" style={{ width: "360px", margin: "20% auto" }}>
+        <div className="container11">
           <Space
             direction="vertical"
             size="large"
@@ -32,18 +44,7 @@ class LoginUI extends Component {
               display: "flex",
             }}
           >
-            <div
-              id="project-name"
-              style={{
-                width: "232px",
-                height: "38px",
-                fontSize: "28px",
-                fontWeight: "bold",
-                margin: "0 auto",
-              }}
-            >
-              {PROJECT_NAME}
-            </div>
+            <div className="project-name">{PROJECT_NAME}</div>
             <div style={{ marginTop: "57px" }}>
               <Form
                 name="basic"
@@ -59,7 +60,7 @@ class LoginUI extends Component {
                   rules={[
                     {
                       required: true,
-                      message: "请输入用户名!",
+                      message: { HINT_USER_NAME_INPUT },
                     },
                   ]}
                 >
@@ -68,13 +69,12 @@ class LoginUI extends Component {
                     prefix={<UserOutlined style={{ color: "#1890FF" }} />}
                   />
                 </Form.Item>
-
                 <Form.Item
                   name="password"
                   rules={[
                     {
                       required: true,
-                      message: "请输入密码!",
+                      message: { HINT_PASSWORD_INPUT },
                     },
                   ]}
                 >
@@ -83,19 +83,18 @@ class LoginUI extends Component {
                     prefix={<LockOutlined style={{ color: "#1890FF" }} />}
                   />
                 </Form.Item>
-
-                {/* <Form.Item name="remember" valuePropName="checked">
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item> */}
-
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    style={{ width: "114px", height: "40px" }}
+                  >
                     {SIGN_IN}
                   </Button>
                 </Form.Item>
               </Form>
             </div>
-            {this.code == 200 ? (
+            {this.props.token != null ? (
               <Navigate replace to={"/dashboard"}></Navigate>
             ) : null}
           </Space>
@@ -107,7 +106,7 @@ class LoginUI extends Component {
 
 export default connect(
   (state) => ({
-    code: state,
+    token: state.LoginReducer.token,
   }),
   {
     login: LoginAction,

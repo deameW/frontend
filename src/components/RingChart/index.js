@@ -38,12 +38,14 @@ const scale = {
   },
 };
 
-function RingChart() {
-  const [data, setData] = useState([{ value: 0.56 }]);
+function RingChart(props) {
+  // const [data, setData] = useState([{ value: 0.56 }]);
   const startAngle = Math.PI / 2;
   const endAngle = startAngle + Math.PI * 2;
+  // const { color, setColor } = useState({ color: "#F890FF" });
+  const { data, color } = props;
   return (
-    <Chart height={150} data={data} scale={scale} autoFit>
+    <Chart width={160} height={160} data={data} scale={scale} autoFit>
       <Coordinate
         type="polar"
         radius={0.75}
@@ -79,7 +81,7 @@ function RingChart() {
         start={[0, 1]}
         end={[data[0].value, 1]}
         style={{
-          stroke: "#1890FF",
+          stroke: color,
           lineCap: "round",
           lineWidth: 15,
           lineDash: null,

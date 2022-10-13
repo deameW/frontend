@@ -1,56 +1,47 @@
 import React, { Component } from "react";
-import KnowledgeGraph from "../KnowledgeGraph";
+import { connect } from "react-redux";
 import WordCloud from "../WordCloud";
-import DialogBox from "../DialogBox";
 import { Col, Row, Divider, Space } from "antd";
 import RingChart from "../RingChart";
 import BarChart from "../BarChart/BarChart";
 import StatisticNumber from "../StatisticsNumber";
-
+import { RingChartPercentageAction } from "../../redux/actions/DashboardActions";
+import {
+  PAGE_TITLE,
+  COMPOSITION_OF_CERTIFICATE,
+  POSITION_OF_LAB,
+  TEST_REPORT,
+  AUTHENTICATION_REPORT,
+  CALIBRATION_REPORT,
+} from "../zh";
+import "./dashboard.css";
 // data for ring chart
 const myData = [
-  { type: "已完成", percent: 0.6666 },
-  { type: "待提升", percent: 0.3334 },
+  { type: "已完成", value: 0.6666 },
+  { type: "待提升", value: 0.3334 },
 ];
-const myContent = {
-  siteCode: "电商",
-  title: "注册成功率",
-  percent: "66.66%",
-};
 
 export class Dashboard extends Component {
-  componentDidMount() {}
+  getRingChartData = () => {
+    RingChartPercentageAction("param");
+  };
+  componentDidMount() {
+    console.log("-------------componentDidMount------------------");
+    //call ringchart action to get data
+    this.getRingChartData();
+  }
   render() {
+    console.log("-------------render------------------");
     return (
       <>
-        <h1>计量大数据可视化平台(海军)</h1>
+        <h1>{PAGE_TITLE}</h1>
 
-        {/* the box that contains the knowledge graph */}
-        {/* <DialogBox>
-          <KnowledgeGraph />
-        </DialogBox> */}
-        <div
-          id="container"
-          style={{
-            width: "1325px",
-            // height: "689px",
-            backgroundColor: "#D9D9D9",
-            // padding: "50px",
-          }}
-        >
+        <div className="container">
           {/* First Line */}
           <Row>
             {/* "证书构成" */}
             <Col>
-              <div
-                style={{
-                  width: "748px",
-                  backgroundColor: "white",
-                  height: "310px",
-                  marginLeft: "50px",
-                  marginTop: "50px",
-                }}
-              >
+              <div className="row1-col1">
                 <div>
                   <div
                     style={{
@@ -61,9 +52,10 @@ export class Dashboard extends Component {
                       borderBottom: "solid #D9D9D9 1px",
                     }}
                   >
-                    <span style={{ marginLeft: "24px" }}>证书构成</span>
+                    <span style={{ marginLeft: "24px" }}>
+                      {COMPOSITION_OF_CERTIFICATE}
+                    </span>
                   </div>
-                  {/* <Divider style={{ wdith: "748px", height: "1px" }} /> */}
                   <div
                     style={{
                       display: "flex",
@@ -71,24 +63,24 @@ export class Dashboard extends Component {
                       marginTop: "37px",
                     }}
                   >
-                    <RingChart data={myData} content={myContent} />
-                    <RingChart data={myData} content={myContent} />
-                    <RingChart data={myData} content={myContent} />
-                    {/* <RingChart />
-                    <RingChart /> */}
+                    <div className="ringchart">
+                      <RingChart data={myData} color={"#7890FF"} />
+                      <p className="report-name">{TEST_REPORT}</p>
+                    </div>
+                    <div className="ringchart">
+                      <RingChart data={myData} color={"#4890FF"} />
+                      <div className="report-name">{AUTHENTICATION_REPORT}</div>
+                    </div>
+                    <div className="ringchart">
+                      <RingChart data={myData} color={"#9890FF"} />
+                      <div className="report-name">{CALIBRATION_REPORT}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </Col>
             <Col>
-              <div
-                style={{
-                  width: "381px",
-                  backgroundColor: "white",
-                  marginLeft: "75px",
-                  marginTop: "50px",
-                }}
-              >
+              <div className="row1-col2">
                 <div
                   style={{
                     height: "56px",
@@ -98,7 +90,7 @@ export class Dashboard extends Component {
                     borderBottom: "solid #D9D9D9 1px",
                   }}
                 >
-                  <span style={{ marginLeft: "24px" }}>实验室所在地</span>
+                  <span style={{ marginLeft: "24px" }}>{POSITION_OF_LAB}</span>
                 </div>
                 <WordCloud></WordCloud>
               </div>
@@ -137,8 +129,6 @@ export class Dashboard extends Component {
                     }}
                   >
                     <BarChart></BarChart>
-                    {/* <RingChart />
-                    <RingChart /> */}
                   </div>
                 </div>
               </div>
@@ -169,3 +159,11 @@ export class Dashboard extends Component {
     );
   }
 }
+export default connect(
+  (state) => ({
+    token: state,
+  }),
+  {
+    getPercentages: RingChartPercentageAction,
+  }
+)(Dashboard);
