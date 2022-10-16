@@ -10,6 +10,7 @@ import { NavLink, useRoutes } from "react-router-dom";
 import { isLogined } from "./utils/auth";
 import routes from "./routes";
 import { useLocation, useRouter } from "react-router";
+import DatabaseSelection from "./components/DatabaseSelection";
 
 function App() {
   const element = useRoutes(routes);
@@ -21,6 +22,12 @@ function App() {
       label: <NavLink to="/login">登录</NavLink>,
       key: "login",
       icon: <MailOutlined />,
+      hidden: true,
+    },
+    {
+      label: <NavLink to="/database_selection">数据库选择</NavLink>,
+      key: "database_selection",
+      icon: <DatabaseSelection />,
       hidden: true,
     },
     {
@@ -55,7 +62,7 @@ function App() {
 
   return (
     <div className="App">
-      {path == "/login" ? (
+      {path == "/login" || path == "/database_selection" ? (
         <Menu
           onClick={onClick}
           selectedKeys={[current]}

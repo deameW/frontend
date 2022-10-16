@@ -95,7 +95,7 @@ class LoginUI extends Component {
               </Form>
             </div>
             {this.props.token != null ? (
-              <Navigate replace to={"/dashboard"}></Navigate>
+              <Navigate replace to={"/database_selection"}></Navigate>
             ) : null}
           </Space>
         </div>

@@ -5,8 +5,11 @@ import GlobalSearch from "../components/GlobalSearch";
 import DataAnaysis from "../components/DataAnalysis";
 import { Dashboard } from "../components/Dashboard/Index";
 import { AnalysisResult } from "../components/AnalysisResult";
+import { AttributionAnalysis } from "../components/AttributionAnalysis";
 import Test from "../components/Test";
 import DashBBoard from "../components/Dashboard/dash";
+import DatabaseSelection from "../components/DatabaseSelection";
+
 export default [
   {
     path: "/login",
@@ -15,6 +18,10 @@ export default [
   {
     path: "/global-search",
     element: <GlobalSearch />,
+  },
+  {
+    path: "/database_selection",
+    element: <DatabaseSelection />,
   },
   {
     path: "/data-analysis",
@@ -27,6 +34,10 @@ export default [
   {
     path: "/analysis-result",
     element: <AnalysisResult />,
+  },
+  {
+    path: "/attribution-analysis",
+    element: <AttributionAnalysis />,
   },
   {
     path: "/test",
