@@ -8,8 +8,10 @@ import {
   Button,
   Space,
   Divider,
+  Steps,
   Select,
 } from "antd";
+
 import { percentage } from "bizcharts/lib/utils";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +19,10 @@ import StepsVertical from "../StepsVertical";
 
 import { Chart, LineAdvance, Tooltip } from "bizcharts";
 import "./style.css";
+import { clear } from "@testing-library/user-event/dist/clear";
 const { Dragger } = Upload;
 const { Option } = Select;
+const { Step } = Steps;
 const props = {
   name: "file",
   multiple: true,
@@ -43,10 +47,7 @@ const props = {
   },
 };
 
-/**
- * Data for line chart
- */
-// 数据源
+//-----------------------Line Chart Component--------------------------------
 const data = [
   {
     month: "Jan",
@@ -144,61 +145,54 @@ const onChange = (value) => {
 const onSearch = (value) => {
   console.log("search:", value);
 };
+
+//------------------------------------ComboBox Component---------------------------
 export const ComboBox = () => (
-  <Select
-    showSearch
-    placeholder="电池型号"
-    optionFilterProp="children"
-    onChange={onChange}
-    onSearch={onSearch}
-    filterOption={(input, option) =>
-      option.children.toLowerCase().includes(input.toLowerCase())
-    }
-  >
-    <Option value="jack">Jack</Option>
-    <Option value="lucy">Lucy</Option>
-    <Option value="tom">Tom</Option>
-  </Select>
+  <>
+    <div>
+      电池型号:
+      <Select
+        showSearch
+        placeholder="电池型号"
+        optionFilterProp="children"
+        onChange={onChange}
+        onSearch={onSearch}
+        filterOption={(input, option) =>
+          option.children.toLowerCase().includes(input.toLowerCase())
+        }
+        style={{ width: "216px" }}
+      >
+        <Option value="jack">Jack</Option>
+        <Option value="lucy">Lucy</Option>
+        <Option value="tom">Tom</Option>
+      </Select>
+    </div>
+  </>
 );
-
-/**
- *
- * @returns 把percentage放到组件外面,更新percentage后render在
- */
+//------------------------------Step Component------------------------
+export const StepComponent = () => (
+  <>
+    <Steps progressDot current={1} style={{ width: "750px" }}>
+      <Step title="文件上传" description="This is a description." />
+      <Step title="数据校验" description="This is a description." />
+      <Step title="数据处理" description="This is a description." />
+      <Step title="模型初始化" description="This is a description." />
+    </Steps>
+  </>
+);
+//------------------------------Main Component------------------------
 const DataAnylasis = () => {
+  const [totalPredict, setTotalPredict] = useState(1234);
+  const [accuracy, setAccuracy] = useState(1234);
+  const [predictResult, setPredictResult] = useState(false);
   const navigate = useNavigate();
-  // var percentage = 0;
 
-  const handleClick = () => {
+  const handleAnalysis = () => {
     navigate("/attribution-analysis");
   };
-  const handlePercentage = () => {
-    setInterval(() => {
-      if (percentage1 <= 90) {
-        setCurrent(0);
-        percentage1 += 30;
-        setPercentage1(percentage1);
-      } else if (percentage1 >= 100 && percentage2 <= 90) {
-        setCurrent(1);
-
-        percentage2 += 30;
-        setPercentage2(percentage2);
-      } else if (percentage2 >= 100 && percentage3 <= 90) {
-        setCurrent(2);
-
-        percentage3 += 30;
-        setPercentage3(percentage3);
-      } else {
-        setCurrent(3);
-
-        clearInterval();
-      }
-    }, 500);
+  const handlePredict = () => {
+    setPredictResult(true);
   };
-  var [percentage1, setPercentage1] = useState(0);
-  var [percentage2, setPercentage2] = useState(0);
-  var [percentage3, setPercentage3] = useState(0);
-  var [current, setCurrent] = useState(-1);
   useEffect(() => {
     console.log("use effect");
   });
@@ -227,44 +221,59 @@ const DataAnylasis = () => {
         <div className="statistics">
           <div className="statistics-single">
             <p>累计预测量</p>
-            <h1>1234,5</h1>
+            <h1>{totalPredict}</h1>
             <LineChartDemo />
           </div>
           <div className="statistics-single">
             <p>累计预测量</p>
-            <h1>1234,5</h1>
+            <h1>{accuracy}</h1>
             <LineChartDemo />
           </div>
         </div>
-        <Space style={{}}>
-          <Dragger {...props} style={{ width: "425px", height: "207px" }}>
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">点击或拖拽上传文件</p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibit from
-              uploading company data or other band files
-            </p>
-          </Dragger>
 
-          <Divider type="vertical" style={{ height: window_height }} />
-
-          <Space>
-            <StepsVertical current={current}></StepsVertical>
-            <div style={{ margin: "0 auto" }}>
-              <div style={{ paddingBottom: "50px" }}>
-                <Progress percent={percentage1} strokeWidth={10} />
-                <Progress percent={percentage2} strokeWidth={10} />
-                <Progress percent={percentage3} strokeWidth={10} />
-                <Progress percent={0} />
-                <Button onClick={handlePercentage}>进度条change</Button>
-                <Button onClick={handleClick}>分析</Button>
-              </div>
-            </div>
-          </Space>
-        </Space>
+        <div className="upload-form">
+          <ComboBox className="battery-type" />
+          <div style={{ display: "flex" }}>
+            上传预测文件：
+            <Dragger {...props} style={{ width: "425px", height: "207px" }}>
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">点击或拖拽上传文件</p>
+              <p className="ant-upload-hint">选择文件上传或将文件拖拽至此处</p>
+            </Dragger>
+          </div>
+          <p>
+            文件格式要求:
+            <br />
+            xxxxxxxxxxxxxxxxxxxxxxx
+            <br />
+            点击此处了解更多
+          </p>
+          <StepComponent />
+          <Button
+            type="primary"
+            className="button-predict"
+            onClick={handlePredict}
+          >
+            开始预测
+          </Button>
+        </div>
       </div>
+      {predictResult ? (
+        <div className="predict-result">
+          <Divider />
+          <div>电池剩余容量：20%</div>
+          <div>SOH:93</div>
+          <Button
+            type="primary"
+            className="button-analysis"
+            onClick={handleAnalysis}
+          >
+            归因分析
+          </Button>
+        </div>
+      ) : null}
     </>
   );
 };
