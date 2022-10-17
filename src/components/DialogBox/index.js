@@ -1,7 +1,21 @@
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import KnowledgeGraph from "../KnowledgeGraph";
-
+import { Tabs } from "antd";
+export const Tab = () => (
+  <Tabs defaultActiveKey="1">
+    <Tabs.TabPane tab="以证书为中心的关系探索" key="1">
+      {/*TODO: Convey props to the KnowledgeGraph Component.*/}
+      <KnowledgeGraph></KnowledgeGraph>
+    </Tabs.TabPane>
+    <Tabs.TabPane tab="以制造方为中心的关系探索" key="2">
+      Content of Tab Pane 2
+    </Tabs.TabPane>
+    <Tabs.TabPane tab="以待测设备为中心的关系探索" key="3">
+      <KnowledgeGraph></KnowledgeGraph>
+    </Tabs.TabPane>
+  </Tabs>
+);
 const DialogBox = () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -12,12 +26,7 @@ const DialogBox = () => {
   };
 
   const handleOk = () => {
-    setModalText("The modal will be closed after two seconds");
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+    setOpen(false);
   };
 
   const handleCancel = () => {
@@ -31,7 +40,7 @@ const DialogBox = () => {
         Open Modal with async logic
       </Button>
       <Modal
-        title="Title"
+        title={<Tab />}
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
@@ -40,7 +49,6 @@ const DialogBox = () => {
         heigh="613px"
       >
         {/* <KnowledgeGraph /> */}
-        <KnowledgeGraph></KnowledgeGraph>
       </Modal>
     </>
   );
