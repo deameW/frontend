@@ -1,0 +1,7 @@
+.box:hover{
+    background-color: antiquewhite;
+    
+}
+.child{
+    display: block;
+}

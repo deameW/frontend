@@ -19,35 +19,11 @@ import StepsVertical from "../StepsVertical";
 
 import { Chart, LineAdvance, Tooltip } from "bizcharts";
 import "./style.css";
-import { clear } from "@testing-library/user-event/dist/clear";
 const { Dragger } = Upload;
 const { Option } = Select;
 const { Step } = Steps;
-const props = {
-  name: "file",
-  multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
 
-  onChange(info) {
-    const { status } = info.file;
-
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
-
-//-----------------------Line Chart Component--------------------------------
+//-----------------------Line Chart Demo Component--------------------------------
 const data = [
   {
     month: "Jan",
@@ -182,6 +158,34 @@ export const StepComponent = () => (
 );
 //------------------------------Main Component------------------------
 const DataAnylasis = () => {
+  const [fileName, setFileName] = useState("1.jpg");
+  const [fileType, setFileType] = useState("test");
+
+  const props = {
+    name: "file",
+    multiple: true,
+    action: "http://127.0.0.1:4523/m1/1730824-0-default/predict/upload_file",
+
+    onChange(info) {
+      const { status } = info.file;
+
+      if (status !== "uploading") {
+        setFileName(info.file.name);
+        // type 为下拉框选择的类别
+        const fileType = console.log(info.file, info.fileList);
+      }
+
+      if (status === "done") {
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+
+    onDrop(e) {
+      console.log("Dropped files", e.dataTransfer.files);
+    },
+  };
   const [totalPredict, setTotalPredict] = useState(1234);
   const [accuracy, setAccuracy] = useState(1234);
   const [predictResult, setPredictResult] = useState(false);
@@ -196,25 +200,7 @@ const DataAnylasis = () => {
   useEffect(() => {
     console.log("use effect");
   });
-  const props = {
-    name: "file",
-    multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
-  };
+
   return (
     <>
       <div className="page-container">
