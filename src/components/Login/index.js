@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
-import { Input, Space, Button, Form, Checkbox } from "antd";
+import { Input, Space, Button, Form, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { LoginAction } from "../../redux/actions/Login";
+import { setToken, isLogined } from "../../utils/auth";
 import {
   PROJECT_NAME,
   USER_NAME_INPUT,
@@ -13,17 +14,23 @@ import {
   HINT_PASSWORD_INPUT,
 } from "../zh";
 import "./index.css";
+import { md5 } from "../../utils/md5";
 
+const window_height = document.body.clientHeight - 97;
 class LoginUI extends Component {
   componentDidUpdate = () => {
     console.log(
       "---------------------------componentDidUpdate------------------"
     );
-    console.log(this.props.token);
   };
-  handleSubmit = (username, password) => {
-    this.props.login(username, password);
-    this.code = 200;
+  handleSubmit = async (username, password) => {
+    await this.props.login(username, md5(password));
+    if (this.props.token == null) {
+      message.error(this.props.status_message);
+    }
+
+    //使用localStorage存入token
+    // setToken(this.props.token);
   };
   onFinish = (values) => {
     console.log("Login Check Success:", values);
@@ -56,6 +63,7 @@ class LoginUI extends Component {
                 autoComplete="off"
               >
                 <Form.Item
+                  className="input_box"
                   name="username"
                   rules={[
                     {
@@ -70,6 +78,7 @@ class LoginUI extends Component {
                   />
                 </Form.Item>
                 <Form.Item
+                  className="input_box"
                   name="password"
                   rules={[
                     {
@@ -94,7 +103,7 @@ class LoginUI extends Component {
                 </Form.Item>
               </Form>
             </div>
-            {this.props.token != null ? (
+            {isLogined() || this.props.token != null ? (
               <Navigate replace to={"/database_selection"}></Navigate>
             ) : null}
           </Space>
@@ -107,6 +116,7 @@ class LoginUI extends Component {
 export default connect(
   (state) => ({
     token: state.LoginReducer.token,
+    status_message: state.LoginReducer.status_message,
   }),
   {
     login: LoginAction,

@@ -1,6 +1,11 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .container11{
     width: 360px;
-    margin: 20% auto
+    
 }
 .project-name{
     width: 232px;
@@ -9,7 +14,7 @@
     font-weight: bold;
     margin: 0 auto;      
 }
-input{
+.input_box{
     height: 40px;
 }
 input::placeholder{

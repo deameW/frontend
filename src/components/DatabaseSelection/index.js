@@ -1,4 +1,5 @@
 import { InboxOutlined } from "@ant-design/icons";
+import moment from "moment";
 import {
   message,
   Upload,
@@ -19,26 +20,43 @@ import StepsVertical from "../StepsVertical";
 import { Chart, LineAdvance, Tooltip } from "bizcharts";
 import { DownloadOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
+import {
+  CHOOSE_DATABASE,
+  CHOOSE_CERTIFICATE,
+  NAVY,
+  LANDFORCE,
+  AIRFOCE,
+  BTN_IMPORT_DATABASE,
+} from "../zh";
 import "./style.css";
+import { replace } from "lodash";
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-export const ChooseClass = () => {
-  const [clazz, setClazz] = useState("navy");
+export const ChooseClass = ({ clazz, setClazz, setTimestring }) => {
+  const handleTimeChange = (time, timestring) => {
+    setTimestring(timestring);
+  };
   return (
     <>
       <div className="left-side-choose-class">
-        <div style={{}}>
-          数据选库：
+        <div>
+          {CHOOSE_DATABASE}：
           <Radio.Group value={clazz} onChange={(e) => setClazz(e.target.value)}>
-            <Radio.Button value="navy">海军</Radio.Button>
-            <Radio.Button value="landForce">陆军</Radio.Button>
-            <Radio.Button value="airForce">空军</Radio.Button>
+            <Radio.Button value="navy">{NAVY}</Radio.Button>
+            <Radio.Button value="landForce">{LANDFORCE}</Radio.Button>
+            <Radio.Button value="airForce">{AIRFOCE}</Radio.Button>
           </Radio.Group>
         </div>
-        <div>
-          证书范围：
-          <RangePicker />
+        <div style={{ marginTop: "24px" }}>
+          {CHOOSE_CERTIFICATE}：
+          <RangePicker
+            onChange={handleTimeChange}
+            defaultPickerValue={[
+              moment("2022-10-1", "YYYY-MM-DD"),
+              moment("2022-10-2", "YYYY-MM-DD"),
+            ]}
+          />
         </div>
       </div>
     </>
@@ -49,16 +67,16 @@ const window_height = document.body.clientHeight - 97;
 
 export const DatabaseSelection = () => {
   const [importButton, setImportButton] = useState(false);
-
+  const [clazz, setClazz] = useState("navy");
+  const [timestring, setTimestring] = useState(["2022-10-04", "2022-10-05"]);
   const handleImport = () => {
     handlePercentage();
-    setImportButton(true);
+    console.log(clazz, timestring);
   };
   const navigate = useNavigate();
-  // var percentage = 0;
 
-  const handleClick = () => {
-    navigate("/dashboard");
+  const handleEnter = () => {
+    navigate((replace = "/dashboard"));
   };
   const handlePercentage = () => {
     setInterval(() => {
@@ -79,10 +97,12 @@ export const DatabaseSelection = () => {
       } else if (percentage3 >= 100 && percentage4 <= 90) {
         setCurrent(3);
         percentage4 += 50;
+        setPercentage4(percentage4);
       } else {
         setCurrent(4);
 
         clearInterval();
+        setImportButton(true);
       }
     }, 500);
   };
@@ -96,33 +116,71 @@ export const DatabaseSelection = () => {
   });
   return (
     <>
-      <Space>
-        <Space direction="vertical">
-          <ChooseClass />
-          <Button type="primary" onClick={handleImport}>
-            导入该库数据
+      <div className="all-container">
+        <div className="left-box">
+          <ChooseClass
+            clazz={clazz}
+            setClazz={setClazz}
+            setTimestring={setTimestring}
+          />
+          <Button
+            type="primary"
+            onClick={handleImport}
+            className="import-button"
+            style={{ marginTop: "20px" }}
+          >
+            {BTN_IMPORT_DATABASE}
           </Button>
-        </Space>
-        <Divider type="vertical" style={{ height: window_height }} />
-        <Space>
-          <StepsVertical current={current}></StepsVertical>
-          <div style={{ margin: "0 auto" }}>
-            <div style={{ paddingBottom: "50px" }}>
-              <Progress percent={percentage1} strokeWidth={10} />
-              <Progress percent={percentage2} strokeWidth={10} />
-              <Progress percent={percentage3} strokeWidth={10} />
-              <Progress percent={percentage4} strokeWidth={10} />
-              {importButton ? (
-                <Button onClick={handleClick}>进入计量大数据可视化平台</Button>
-              ) : (
-                <Button onClick={handleClick} disabled>
-                  进入计量大数据可视化平台
-                </Button>
-              )}
-            </div>
+        </div>
+        <div className="divider">
+          <Divider type="vertical" style={{ height: window_height }} />
+        </div>
+        <div className="right-box">
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <StepsVertical current={current}></StepsVertical>
+
+            {importButton ? (
+              <Button
+                onClick={handleEnter}
+                style={{ marginTop: "20px" }}
+                type="primary"
+              >
+                进入计量大数据可视化平台
+              </Button>
+            ) : (
+              <Button
+                onClick={handleEnter}
+                disabled
+                style={{ marginTop: "20px" }}
+              >
+                进入计量大数据可视化平台
+              </Button>
+            )}
           </div>
-        </Space>
-      </Space>
+          <div className="progress">
+            <Progress
+              className="percentage"
+              percent={percentage1}
+              strokeWidth={10}
+            />
+            <Progress
+              className="percentage"
+              percent={percentage2}
+              strokeWidth={10}
+            />
+            <Progress
+              className="percentage"
+              percent={percentage3}
+              strokeWidth={10}
+            />
+            <Progress
+              className="percentage"
+              percent={percentage4}
+              strokeWidth={10}
+            />
+          </div>
+        </div>
+      </div>
     </>
   );
 };

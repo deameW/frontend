@@ -10,7 +10,7 @@ export function setToken(token) {
 }
 
 export function isLogined() {
-  if (localStorage.getItem("token")) {
+  if (localStorage.getItem("token") != null) {
     return true;
   }
   return false;

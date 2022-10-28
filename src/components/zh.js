@@ -13,3 +13,10 @@ export const TEST_REPORT = "检测报告";
 export const AUTHENTICATION_REPORT = "检测报告";
 export const CALIBRATION_REPORT = "检测报告";
 export const STATISTIC_12_MONTH = "近12月证书检测量统计";
+//--------------------------Select Database Page-------------------------
+export const CHOOSE_DATABASE = "数据选库";
+export const CHOOSE_CERTIFICATE = "证书范围";
+export const NAVY = "海军";
+export const LANDFORCE = "陆军";
+export const AIRFOCE = "空军";
+export const BTN_IMPORT_DATABASE = "导入该数据库";
