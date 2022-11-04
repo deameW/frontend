@@ -24,11 +24,11 @@
 .progress{
     display: flex;
     flex-direction: column;
-    margin-left: 60px;
+    margin-left: 40px;
 
 }
 .percentage{
     width: 200px;
-    margin-top: 34px;
+    margin-top: 20px;
 
 }

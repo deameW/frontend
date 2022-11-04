@@ -96,7 +96,7 @@ class LoginUI extends Component {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    style={{ width: "114px", height: "40px" }}
+                    style={{ width: "114px", height: "40px" ,marginLeft:"130px"}}
                   >
                     {SIGN_IN}
                   </Button>

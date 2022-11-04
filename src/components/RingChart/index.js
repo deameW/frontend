@@ -38,7 +38,7 @@ const scale = {
   },
 };
 
-function RingChart(props) {
+const RingChart = (props) =>{
   // const [data, setData] = useState([{ value: 0.56 }]);
   const startAngle = Math.PI / 2;
   const endAngle = startAngle + Math.PI * 2;

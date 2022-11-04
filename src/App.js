@@ -11,7 +11,8 @@ import { isLogined } from "./utils/auth";
 import routes from "./routes";
 import { useLocation, useRouter } from "react-router";
 import DatabaseSelection from "./components/DatabaseSelection";
-
+import Nav from "./components/Nav";
+const clientWidth = document.body.clientWidth;
 function App() {
   const element = useRoutes(routes);
   if (!isLogined()) {
@@ -61,7 +62,7 @@ function App() {
   const path = `${location.pathname}${location.search}`;
 
   return (
-    <div className="App">
+    <>
       {path == "/login" || path == "/database_selection" ? (
         <Menu
           onClick={onClick}
@@ -76,13 +77,13 @@ function App() {
           selectedKeys={[current]}
           mode="horizontal"
           items={items}
-          style={{ height: "103px", lineHeight: "103px", fontSize: "14px" }}
+          style={{ height: "103px", lineHeight: "103px", fontSize: "14px",top:"1px" ,width:clientWidth, left:"10px"}}
           // hidden={true}
         />
       )}
       {/* 注册路由 */}
       {element}
-    </div>
+      </>
   );
 }
 

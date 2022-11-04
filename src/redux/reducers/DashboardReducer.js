@@ -28,7 +28,7 @@ export function wordCloudReducer(preState = initState, action) {
 }
 
 export function statistics12MonthReducer(preState = initState, action) {
-  console.log("----> DashboardReducer ----> getWordCloudData");
+  console.log("----> DashboardReducer ----> get12Month");
   switch (action.type) {
     case "STATISTICS_12MONTH":
       return {

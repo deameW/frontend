@@ -1,11 +1,12 @@
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .container11{
+    position:absolute;
     width: 360px;
-    
+    position:absolute;  
+   left:50%;  
+   top:50%;  
+   height: 310px;
+   margin:-100px 0 0 -150px;
 }
 .project-name{
     width: 232px;

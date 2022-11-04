@@ -51,6 +51,7 @@ export const ChooseClass = ({ clazz, setClazz, setTimestring }) => {
         <div style={{ marginTop: "24px" }}>
           {CHOOSE_CERTIFICATE}：
           <RangePicker
+            placeholder={["起始时间","结束时间"]}
             onChange={handleTimeChange}
             defaultPickerValue={[
               moment("2022-10-1", "YYYY-MM-DD"),
@@ -82,21 +83,21 @@ export const DatabaseSelection = () => {
     setInterval(() => {
       if (percentage1 <= 90) {
         setCurrent(0);
-        percentage1 += 50;
+        percentage1 += 40;
         setPercentage1(percentage1);
       } else if (percentage1 >= 100 && percentage2 <= 90) {
         setCurrent(1);
 
-        percentage2 += 50;
+        percentage2 += 60;
         setPercentage2(percentage2);
       } else if (percentage2 >= 100 && percentage3 <= 90) {
         setCurrent(2);
 
-        percentage3 += 50;
+        percentage3 += 40;
         setPercentage3(percentage3);
       } else if (percentage3 >= 100 && percentage4 <= 90) {
         setCurrent(3);
-        percentage4 += 50;
+        percentage4 += 70;
         setPercentage4(percentage4);
       } else {
         setCurrent(4);

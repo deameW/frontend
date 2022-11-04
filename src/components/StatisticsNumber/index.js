@@ -12,6 +12,7 @@ const StatisticNumber = () => (
             value={11.28}
             precision={2}
             valueStyle={{
+              fontSize:"21px",
               color: "#3f8600",
             }}
             prefix={<ArrowUpOutlined />}
@@ -24,9 +25,11 @@ const StatisticNumber = () => (
           <Statistic
             title="类及服务单位"
             value={9.3}
-            precision={2}
+            precision={0}
             valueStyle={{
               color: "#cf1322",
+              fontSize:"21px",
+
             }}
             prefix={<ArrowUpOutlined />}
             suffix="家"
