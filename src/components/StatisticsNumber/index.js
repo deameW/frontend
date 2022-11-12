@@ -23,7 +23,7 @@ const StatisticNumber = () => (
       <Col span={12}>
         <Card>
           <Statistic
-            title="类及服务单位"
+            title="累计服务单位"
             value={9.3}
             precision={0}
             valueStyle={{

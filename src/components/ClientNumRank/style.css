@@ -1,0 +1,19 @@
+.badge{
+    display: flex;
+    font-size: 15px;
+    justify-content: space-between;
+}
+.clientName{
+    margin-top: 8px;
+    margin-left: 20px;
+}
+.clientNum{
+    /* position:absolute; */
+    margin-top: 8px;
+    margin-left: 70px;
+    /* right:2px */
+}
+.title{
+    font-size: 17px;
+    margin-left: 10px;
+}

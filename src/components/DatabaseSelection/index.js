@@ -1,5 +1,5 @@
-import { InboxOutlined } from "@ant-design/icons";
-import moment from "moment";
+import { InboxOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import {
   message,
   Upload,
@@ -11,25 +11,29 @@ import {
   Divider,
   Radio,
   DatePicker,
-  Select,
-} from "antd";
-import { percentage } from "bizcharts/lib/utils";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import StepsVertical from "../StepsVertical";
-import { Chart, LineAdvance, Tooltip } from "bizcharts";
-import { DownloadOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+  Select
+} from 'antd';
+import { ConfigProvider } from 'antd';
+
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+
+import { percentage } from 'bizcharts/lib/utils';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import StepsVertical from '../StepsVertical';
+import { Chart, LineAdvance, Tooltip } from 'bizcharts';
+import { DownloadOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
 import {
   CHOOSE_DATABASE,
   CHOOSE_CERTIFICATE,
   NAVY,
   LANDFORCE,
   AIRFOCE,
-  BTN_IMPORT_DATABASE,
-} from "../zh";
-import "./style.css";
-import { replace } from "lodash";
+  BTN_IMPORT_DATABASE
+} from '../zh';
+import './style.css';
+import { replace } from 'lodash';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
@@ -48,16 +52,18 @@ export const ChooseClass = ({ clazz, setClazz, setTimestring }) => {
             <Radio.Button value="airForce">{AIRFOCE}</Radio.Button>
           </Radio.Group>
         </div>
-        <div style={{ marginTop: "24px" }}>
+        <div style={{ marginTop: '24px' }}>
           {CHOOSE_CERTIFICATE}：
-          <RangePicker
-            placeholder={["起始时间","结束时间"]}
-            onChange={handleTimeChange}
-            defaultPickerValue={[
-              moment("2022-10-1", "YYYY-MM-DD"),
-              moment("2022-10-2", "YYYY-MM-DD"),
-            ]}
-          />
+          <ConfigProvider locale={zh_CN}>
+            <RangePicker
+              placeholder={['起始时间', '结束时间']}
+              onChange={handleTimeChange}
+              defaultPickerValue={[
+                moment('2022-10-1', 'YYYY-MM-DD'),
+                moment('2022-10-2', 'YYYY-MM-DD')
+              ]}
+            />
+          </ConfigProvider>
         </div>
       </div>
     </>
@@ -68,8 +74,8 @@ const window_height = document.body.clientHeight - 97;
 
 export const DatabaseSelection = () => {
   const [importButton, setImportButton] = useState(false);
-  const [clazz, setClazz] = useState("navy");
-  const [timestring, setTimestring] = useState(["2022-10-04", "2022-10-05"]);
+  const [clazz, setClazz] = useState('navy');
+  const [timestring, setTimestring] = useState(['2022-10-04', '2022-10-05']);
   const handleImport = () => {
     handlePercentage();
     console.log(clazz, timestring);
@@ -77,7 +83,7 @@ export const DatabaseSelection = () => {
   const navigate = useNavigate();
 
   const handleEnter = () => {
-    navigate((replace = "/dashboard"));
+    navigate((replace = '/dashboard'));
   };
   const handlePercentage = () => {
     setInterval(() => {
@@ -113,7 +119,7 @@ export const DatabaseSelection = () => {
   var [percentage4, setPercentage4] = useState(0);
   var [current, setCurrent] = useState(-1);
   useEffect(() => {
-    console.log("use effect");
+    console.log('use effect');
   });
   return (
     <>
@@ -128,7 +134,7 @@ export const DatabaseSelection = () => {
             type="primary"
             onClick={handleImport}
             className="import-button"
-            style={{ marginTop: "20px" }}
+            style={{ marginTop: '20px' }}
           >
             {BTN_IMPORT_DATABASE}
           </Button>
@@ -137,13 +143,13 @@ export const DatabaseSelection = () => {
           <Divider type="vertical" style={{ height: window_height }} />
         </div>
         <div className="right-box">
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <StepsVertical current={current}></StepsVertical>
 
             {importButton ? (
               <Button
                 onClick={handleEnter}
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: '20px' }}
                 type="primary"
               >
                 进入计量大数据可视化平台
@@ -152,7 +158,7 @@ export const DatabaseSelection = () => {
               <Button
                 onClick={handleEnter}
                 disabled
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: '20px' }}
               >
                 进入计量大数据可视化平台
               </Button>

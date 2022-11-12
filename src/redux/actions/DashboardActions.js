@@ -1,4 +1,4 @@
-import api from "../../service/base";
+import api from '../../service/base';
 export const RingChartPercentageAction = () => {
   /**
    * fake data
@@ -6,7 +6,7 @@ export const RingChartPercentageAction = () => {
   const percentages = {
     testReport: 0.28,
     authencicatedReport: 0.42,
-    calibrationReport: 0.3,
+    calibrationReport: 0.3
   };
   //   const response = await api(
   //     "get",
@@ -15,7 +15,7 @@ export const RingChartPercentageAction = () => {
   //   ).catch((err) => {
   //     console.log("err");
   //   });
-  return { type: "DASHBOARD_PERCENTAGES", payload: { ...percentages } };
+  return { type: 'DASHBOARD_PERCENTAGES', payload: { ...percentages } };
   // To return the user information to the reducers
 };
 
@@ -26,7 +26,7 @@ export const WordCloudAction = () => {
   const percentages = {
     testReport: 0.28,
     authencicatedReport: 0.42,
-    calibrationReport: 0.3,
+    calibrationReport: 0.3
   };
   //   const response = await api(
   //     "get",
@@ -35,7 +35,7 @@ export const WordCloudAction = () => {
   //   ).catch((err) => {
   //     console.log("err");
   //   });
-  return { type: "DASHBOARD_WORDCLOUD", payload: { ...percentages } };
+  return { type: 'DASHBOARD_WORDCLOUD', payload: { ...percentages } };
   // To return the user information to the reducers
 };
 
@@ -46,7 +46,7 @@ export const statistics12MonthAction = () => {
   const percentages = {
     testReport: 0.28,
     authencicatedReport: 0.42,
-    calibrationReport: 0.3,
+    calibrationReport: 0.3
   };
   //   const response = await api(
   //     "get",
@@ -55,6 +55,9 @@ export const statistics12MonthAction = () => {
   //   ).catch((err) => {
   //     console.log("err");
   //   });
-  return { type: "STATISTICS_12MONTH", payload: { ...percentages } };
+  return { type: 'STATISTICS_12MONTH', payload: { ...percentages } };
   // To return the user information to the reducers
 };
+
+//certificate_total & client_total
+export const getOverAllAction = () => {};
